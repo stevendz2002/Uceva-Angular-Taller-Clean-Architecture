@@ -8,6 +8,8 @@ import { User, UserEngineering } from "../../domain/models/user.model";
 import { OrderModel } from "../../domain/models/order.model";
 import { ORDERS_MOCK } from "../../../mocks/orders.mocks";
 import { Category } from "../../domain/models/category.model";
+import { ProviderModel } from "../../domain/models/provider.model";
+import { PROVIDERS_MOCK } from "../../../mocks/providers.mocks";
 
 /**
  * Servicio de infraestructura para obtención de datos.
@@ -127,6 +129,15 @@ export class DataService {
     }
 
     /**
+     * Obtiene el listado de proveedores desde datos locales simulados.
+     *
+     * @returns {Observable<ProviderModel[]>} Observable que emite un arreglo de {@link ProviderModel}
+     */
+    getAllProvidersLocal(): Observable<ProviderModel[]> {
+        return of(PROVIDERS_MOCK);
+    }
+
+    /**
      * Obtiene el listado de usuarios desde el backend Node.js.
      *
      * @param countUsers - Cantidad de usuarios a solicitar
@@ -165,6 +176,18 @@ export class DataService {
      */
     getAllCategoriesNode(): Observable<Category[]> {
         return this.httpClient.get<Category[]>(`${this.nodeUrl}/categories`);
+    }
+
+    /**
+     * Obtiene el listado de proveedores desde el backend Node.js.
+     *
+     * @remarks
+     * Realiza una petición HTTP GET al endpoint `/providers`.
+     *
+     * @returns {Observable<ProviderModel[]>} Observable que emite un arreglo de {@link ProviderModel}
+     */
+    getAllProvidersNode(): Observable<ProviderModel[]> {
+        return this.httpClient.get<ProviderModel[]>(`${this.nodeUrl}/providers`);
     }
 
     /**
@@ -208,4 +231,15 @@ export class DataService {
         return this.httpClient.get<Category[]>(`${this.springBootUrl}/categories`);
     }
 
+    /**
+     * Obtiene el listado de proveedores desde el backend SpringBoot.
+     *
+     * @remarks
+     * Realiza una petición HTTP GET al endpoint `/providers`.
+     *
+     * @returns {Observable<ProviderModel[]>} Observable que emite un arreglo de {@link ProviderModel}
+     */
+    getAllProvidersSpringBoot(): Observable<ProviderModel[]> {
+        return this.httpClient.get<ProviderModel[]>(`${this.springBootUrl}/providers`);
+    }
 }

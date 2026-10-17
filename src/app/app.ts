@@ -44,6 +44,7 @@ export class App {
       { text: 'Productos', url: '/products' },
       { text: 'Categorías', url: '/categories' },
       { text: 'Órdenes', url: '/orders' },
+      { text: 'Proveedores', url: '/providers' },
     ]
   };
 }

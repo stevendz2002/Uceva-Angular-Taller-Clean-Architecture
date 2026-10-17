@@ -1,8 +1,9 @@
 import { Routes } from '@angular/router';
 import { UsersPage } from './presentation/pages/users/users.page';
 import { ProductsPage } from './presentation/pages/products/products.page';
-import { OrdersPage } from './presentation/pages/orders/orders.page';
 import { CategoriesPage } from './presentation/pages/categories/categories.page';
+import { OrdersPage } from './presentation/pages/orders/orders.page';
+import { ProvidersPage } from './presentation/pages/providers/providers.page';
 
 /**
  * Definición de las rutas principales de la aplicación.
@@ -13,13 +14,14 @@ import { CategoriesPage } from './presentation/pages/categories/categories.page'
  * a los componentes correspondientes.
  *
  * Incluye:
- * - Rutas de navegación principales (usuarios, productos, órdenes, categorías)
+ * - Rutas de navegación principales (usuarios, productos, categorías, órdenes, proveedores)
  * - Redirección por defecto para rutas no existentes
  *
  * @see {@link UsersPage}
  * @see {@link ProductsPage}
- * @see {@link OrdersPage}
  * @see {@link CategoriesPage}
+ * @see {@link OrdersPage}
+ * @see {@link ProvidersPage}
  */
 export const routes: Routes = [
 
@@ -42,6 +44,15 @@ export const routes: Routes = [
   { path: 'products', component: ProductsPage },
 
   /**
+   * Ruta de categorías.
+   *
+   * @remarks
+   * Renderiza el componente `CategoriesPage`, encargado
+   * de mostrar y gestionar el listado de categorías de productos.
+   */
+  { path: 'categories', component: CategoriesPage },
+
+  /**
    * Ruta de órdenes.
    *
    * @remarks
@@ -51,13 +62,13 @@ export const routes: Routes = [
   { path: 'orders', component: OrdersPage },
 
   /**
-   * Ruta de categorías.
+   * Ruta de proveedores.
    *
    * @remarks
-   * Renderiza el componente `CategoriesPage`, encargado
-   * de mostrar y gestionar el listado de categorías de productos.
+   * Renderiza el componente `ProvidersPage`, encargado
+   * de mostrar y gestionar el listado de proveedores.
    */
-  { path: 'categories', component: CategoriesPage },
+  { path: 'providers', component: ProvidersPage },
 
   /**
    * Ruta comodín.

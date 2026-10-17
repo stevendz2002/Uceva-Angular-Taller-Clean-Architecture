@@ -1,0 +1,27 @@
+<table class="table table-striped border">
+	<thead>
+		<tr>
+			<th scope="col">Id</th>
+			<th scope="col">Nombre</th>
+			<th scope="col">Correo</th>
+			<th scope="col">Teléfono</th>
+			<th scope="col">Ciudad</th>
+		</tr>
+	</thead>
+	<tbody>
+		@for (provider of providers; track provider.id) {
+			<tr>
+				<th scope="row">{{ provider.id }}</th>
+				<td>{{ provider.name }}</td>
+				<td>{{ provider.email }}</td>
+				<td>{{ provider.phone }}</td>
+				<td>
+					<dsb-badge-atom
+						[text]="provider.city"
+						[type]="cityMap[provider.city] || 'primary'">
+					</dsb-badge-atom>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
