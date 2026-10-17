@@ -4,9 +4,11 @@ import { TestBed } from '@angular/core/testing';
 import { environment } from '../../../../environments/environment';
 import { Product } from '../../domain/models/product.model';
 import { User } from '../../domain/models/user.model';
+import { ProviderModel } from '../../domain/models/provider.model';
 import { DataService } from './data.service';
 import { USERS_MOCK } from '../../../mocks/users.mocks';
 import { PRODUCTS_MOCK } from '../../../mocks/products.mocks';
+import { PROVIDERS_MOCK } from '../../../mocks/providers.mocks';
 
 jest.mock('@faker-js/faker', () => ({
   faker: {
@@ -107,6 +109,31 @@ describe('DataService', () => {
     const req = httpMock.expectOne(`${pathUrlSpringBoot}/products/${countProducts}`);
     expect(req.request.method).toBe('GET');
     req.flush(PRODUCTS_MOCK);
+  });
+
+  it('debe devolver el listado de proveedores locales', (done) => {
+    service.getAllProvidersLocal().subscribe((providers: ProviderModel[]) => {
+      expect(providers).toEqual(PROVIDERS_MOCK);
+      done();
+    });
+  });
+
+  it('debe obtener proveedores desde Node por HTTP', () => {
+    service.getAllProvidersNode().subscribe((providers) => {
+      expect(providers).toEqual(PROVIDERS_MOCK);
+    });
+    const req = httpMock.expectOne(`${pathUrlNode}/providers`);
+    expect(req.request.method).toBe('GET');
+    req.flush(PROVIDERS_MOCK);
+  });
+
+  it('debe obtener proveedores desde SpringBoot por HTTP', () => {
+    service.getAllProvidersSpringBoot().subscribe((providers) => {
+      expect(providers).toEqual(PROVIDERS_MOCK);
+    });
+    const req = httpMock.expectOne(`${pathUrlSpringBoot}/providers`);
+    expect(req.request.method).toBe('GET');
+    req.flush(PROVIDERS_MOCK);
   });
 
 });

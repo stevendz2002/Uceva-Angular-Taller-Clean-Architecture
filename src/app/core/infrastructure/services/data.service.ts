@@ -5,6 +5,8 @@ import { Observable, of } from "rxjs";
 import { environment } from "../../../../environments/environment";
 import { Product, ProductCategory } from "../../domain/models/product.model";
 import { User, UserEngineering } from "../../domain/models/user.model";
+import { ProviderModel } from "../../domain/models/provider.model";
+import { PROVIDERS_MOCK } from "../../../mocks/providers.mocks";
 
 /**
  * Servicio de infraestructura para obtención de datos.
@@ -197,6 +199,39 @@ export class DataService {
      */
     getAllProductsSpringBoot(countProducts: number): Observable<Product[]> {
         return this.httpClient.get<Product[]>(`${this.springBootUrl}/products/${countProducts}`);
+    }
+
+    /**
+     * Obtiene el listado de proveedores desde datos locales simulados.
+     *
+     * @returns {Observable<ProviderModel[]>} Observable que emite un arreglo de {@link ProviderModel}
+     */
+    getAllProvidersLocal(): Observable<ProviderModel[]> {
+        return of(PROVIDERS_MOCK);
+    }
+
+    /**
+     * Obtiene el listado de proveedores desde el backend Node.js.
+     *
+     * @remarks
+     * Realiza una petición HTTP GET al endpoint `/providers`.
+     *
+     * @returns {Observable<ProviderModel[]>} Observable que emite un arreglo de {@link ProviderModel}
+     */
+    getAllProvidersNode(): Observable<ProviderModel[]> {
+        return this.httpClient.get<ProviderModel[]>(`${this.nodeUrl}/providers`);
+    }
+
+    /**
+     * Obtiene el listado de proveedores desde el backend SpringBoot.
+     *
+     * @remarks
+     * Realiza una petición HTTP GET al endpoint `/providers`.
+     *
+     * @returns {Observable<ProviderModel[]>} Observable que emite un arreglo de {@link ProviderModel}
+     */
+    getAllProvidersSpringBoot(): Observable<ProviderModel[]> {
+        return this.httpClient.get<ProviderModel[]>(`${this.springBootUrl}/providers`);
     }
 
 }
