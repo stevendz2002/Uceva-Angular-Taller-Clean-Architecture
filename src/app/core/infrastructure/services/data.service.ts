@@ -7,6 +7,7 @@ import { Product, ProductCategory } from "../../domain/models/product.model";
 import { User, UserEngineering } from "../../domain/models/user.model";
 import { OrderModel } from "../../domain/models/order.model";
 import { ORDERS_MOCK } from "../../../mocks/orders.mocks";
+import { Category } from "../../domain/models/category.model";
 
 /**
  * Servicio de infraestructura para obtención de datos.
@@ -110,6 +111,22 @@ export class DataService {
     }
 
     /**
+     * Obtiene el listado de categorías desde datos locales simulados.
+     *
+     * @returns Observable que emite un arreglo de {@link Category}
+     */
+    getAllCategoriesLocal(): Observable<Category[]> {
+        const categories: Category[] = [
+            { id: 1, name: 'Lácteos', description: 'Productos derivados de la leche como quesos, yogures y mantequilla', active: true },
+            { id: 2, name: 'Carnes', description: 'Cortes vacunos, porcinos, aves y embutidos frescos de primera calidad', active: true },
+            { id: 3, name: 'Frutas', description: 'Variedad de frutas frescas seleccionadas de temporada y cítricos', active: true },
+            { id: 4, name: 'Verduras', description: 'Hortalizas, legumbres y vegetales frescos directos del campo', active: false },
+            { id: 5, name: 'Bebidas', description: 'Jugos naturales, aguas minerales, refrescos y bebidas hidratantes', active: true },
+        ];
+        return of(categories);
+    }
+
+    /**
      * Obtiene el listado de usuarios desde el backend Node.js.
      *
      * @param countUsers - Cantidad de usuarios a solicitar
@@ -139,6 +156,18 @@ export class DataService {
     }
 
     /**
+     * Obtiene el listado de categorías desde el backend Node.js.
+     *
+     * @remarks
+     * Realiza una petición HTTP GET al endpoint `/categories`.
+     *
+     * @returns Observable que emite un arreglo de {@link Category}
+     */
+    getAllCategoriesNode(): Observable<Category[]> {
+        return this.httpClient.get<Category[]>(`${this.nodeUrl}/categories`);
+    }
+
+    /**
      * Obtiene el listado de usuarios desde el backend SpringBoot.
      *
      * @param countUsers - Cantidad de usuarios a solicitar
@@ -165,6 +194,18 @@ export class DataService {
      */
     getAllOrdersSpringBoot(): Observable<OrderModel[]> {
         return this.httpClient.get<OrderModel[]>(`${this.springBootUrl}/orders`);
+    }
+
+    /**
+     * Obtiene el listado de categorías desde el backend SpringBoot.
+     *
+     * @remarks
+     * Realiza una petición HTTP GET al endpoint `/categories`.
+     *
+     * @returns Observable que emite un arreglo de {@link Category}
+     */
+    getAllCategoriesSpringBoot(): Observable<Category[]> {
+        return this.httpClient.get<Category[]>(`${this.springBootUrl}/categories`);
     }
 
 }

@@ -19,7 +19,7 @@ jest.mock('@faker-js/faker', () => ({
       email: jest.fn(() => 'test@mail.com'),
     },
     helpers: {
-      arrayElement: jest.fn((arr) => arr[0]),
+      arrayElement: jest.fn((arr) => arr ? arr[0] : ''),
     },
   },
 }));

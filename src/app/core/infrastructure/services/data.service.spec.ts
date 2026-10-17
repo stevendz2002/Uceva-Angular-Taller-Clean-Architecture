@@ -135,4 +135,41 @@ describe('DataService', () => {
     req.flush(ORDERS_MOCK);
   });
 
+  it('debe devolver el listado de categorías locale', (done) => {
+    service.getAllCategoriesLocal().subscribe((categories) => {
+      expect(categories.length).toBe(5);
+      done();
+    });
+  });
+
+  it('debe obtener categorías desde Node por HTTP', () => {
+    service.getAllCategoriesNode().subscribe((categories) => {
+      expect(categories.length).toBe(5);
+    });
+    const req = httpMock.expectOne(`${pathUrlNode}/categories`);
+    expect(req.request.method).toBe('GET');
+    req.flush([
+      { id: 1, name: 'Lácteos', description: 'Desc', active: true },
+      { id: 2, name: 'Carnes', description: 'Desc', active: true },
+      { id: 3, name: 'Frutas', description: 'Desc', active: true },
+      { id: 4, name: 'Verduras', description: 'Desc', active: true },
+      { id: 5, name: 'Bebidas', description: 'Desc', active: true }
+    ]);
+  });
+
+  it('debe obtener categorías desde SpringBoot por HTTP', () => {
+    service.getAllCategoriesSpringBoot().subscribe((categories) => {
+      expect(categories.length).toBe(5);
+    });
+    const req = httpMock.expectOne(`${pathUrlSpringBoot}/categories`);
+    expect(req.request.method).toBe('GET');
+    req.flush([
+      { id: 1, name: 'Lácteos', description: 'Desc', active: true },
+      { id: 2, name: 'Carnes', description: 'Desc', active: true },
+      { id: 3, name: 'Frutas', description: 'Desc', active: true },
+      { id: 4, name: 'Verduras', description: 'Desc', active: true },
+      { id: 5, name: 'Bebidas', description: 'Desc', active: true }
+    ]);
+  });
+
 });
